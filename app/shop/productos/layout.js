@@ -57,7 +57,7 @@ const ProductosLayout = ({ children }) => {
                 <li>
                   <details className="md:ml-48">
                     <summary className="uppercase font-semibold  ">
-                      Ordenar por:
+                      categoria:
                     </summary>
                     <ul className="z-[1] p-2 bg-base-100 ">
                       <li>

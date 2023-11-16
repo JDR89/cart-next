@@ -12,7 +12,7 @@ export default function Home() {
     <>
     <Navbar/>
       <div
-        className="hero min-h-[85vh]"
+        className="hero min-h-[90vh]"
         style={{
           backgroundImage:
           `url("/ui/fondoHeroHome.webp")`,

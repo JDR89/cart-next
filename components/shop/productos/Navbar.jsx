@@ -27,6 +27,7 @@ const Navbar = () => {
               <Link
                 className="hover:bg-neutral-content px-2 py-1 rounded"
                 href="/shop/nosotros"
+                
               >
                 Nosotros
               </Link>
