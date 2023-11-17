@@ -18,7 +18,7 @@ const CategoriaPage = async({ params }) => {
 
   const response = await fetch(`http://localhost:3000/api/productos/${categoria}`,{
     next:{
-      tags:["productos"]
+      revalidate:0
     }
   })
   const products = await response.json()

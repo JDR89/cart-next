@@ -1,7 +1,7 @@
 {
   "mockData": [
     {
-      "slug": "01",
+      "slug": "teclado-gamer-hyperx-alloy-fps-pro",
       "image": "/products/teclado.webp",
       "description": "Teclado mecánico con retroiluminación RGB",
       "title": "Teclado Gamer HyperX Alloy FPS Pro",
@@ -10,7 +10,7 @@
       "inStock": 15
     },
     {
-      "slug": "02",
+      "slug": "teclado-logitech-k380",
       "image": "/products/teclado.webp",
       "description": "Teclado inalámbrico compacto",
       "title": "Teclado Logitech K380",
@@ -19,7 +19,7 @@
       "inStock": 8
     },
     {
-      "slug": "03",
+      "slug": "teclado-microsoft-ergonomic-keyboard",
       "image": "/products/teclado.webp",
       "description": "Teclado ergonómico para oficina",
       "title": "Teclado Microsoft Ergonomic Keyboard",
@@ -28,7 +28,7 @@
       "inStock": 12
     },
     {
-      "slug": "04",
+      "slug": "teclado-ducky-one-2-mini",
       "image": "/products/teclado.webp",
       "description": "Teclado mecánico con switches Cherry MX",
       "title": "Teclado Ducky One 2 Mini",
@@ -37,7 +37,7 @@
       "inStock": 5
     },
     {
-      "slug": "05",
+      "slug": "auriculares-sony-wh-1000xm4",
       "image": "/products/auriculares.webp",
       "description": "Auriculares inalámbricos con cancelación de ruido",
       "title": "Auriculares Sony WH-1000XM4",
@@ -46,7 +46,7 @@
       "inStock": 18
     },
     {
-      "slug": "06",
+      "slug": "auriculares-hyperx-cloud-ii",
       "image": "/products/auriculares.webp",
       "description": "Auriculares con cable para juegos",
       "title": "Auriculares HyperX Cloud II",
@@ -55,7 +55,7 @@
       "inStock": 10
     },
     {
-      "slug": "07",
+      "slug": "auriculares-jbl-free-x",
       "image": "/products/auriculares.webp",
       "description": "Auriculares Bluetooth deportivos",
       "title": "Auriculares JBL Free X",
@@ -64,7 +64,7 @@
       "inStock": 14
     },
     {
-      "slug": "08",
+      "slug": "auriculares-bose-soundsport",
       "image": "/products/auriculares.webp",
       "description": "Auriculares in-ear con micrófono",
       "title": "Auriculares Bose SoundSport",
@@ -73,7 +73,7 @@
       "inStock": 7
     },
     {
-      "slug": "08",
+      "slug": "camara-logitech-c920",
       "image": "/products/camara.jpg",
       "description": "Cámara web Full HD para videollamadas",
       "title": "Cámara Logitech C920",
@@ -82,7 +82,7 @@
       "inStock": 16
     },
     {
-      "slug": "10",
+      "slug": "camara-razer-kiyo",
       "image": "/products/camara.jpg",
       "description": "Cámara de streaming con ajuste de enfoque",
       "title": "Cámara Razer Kiyo",
@@ -91,7 +91,7 @@
       "inStock": 3
     },
     {
-      "slug": "11",
+      "slug": "camara-sony-alpha-a6400",
       "image": "/products/camara.jpg",
       "description": "Cámara para transmisión en vivo con lentes intercambiables",
       "title": "Cámara Sony Alpha a6400",
@@ -100,7 +100,7 @@
       "inStock": 20
     },
     {
-      "slug": "12",
+      "slug": "camara-arlo-pro-3",
       "image": "/products/camara.jpg",
       "description": "Cámara de seguridad para el hogar con detección de movimiento",
       "title": "Cámara Arlo Pro 3",
@@ -109,7 +109,7 @@
       "inStock": 9
     },
     {
-      "slug": "13",
+      "slug": "raton-logitech-mx-master-3",
       "image": "/products/mouse.webp",
       "description": "Ratón inalámbrico ergonómico con sensor de alta precisión",
       "title": "Ratón Logitech MX Master 3",
@@ -118,7 +118,7 @@
       "inStock": 13
     },
     {
-      "slug": "14",
+      "slug": "raton-steelseries-rival-600",
       "image": "/products/mouse.webp",
       "description": "Ratón gaming con iluminación personalizable",
       "title": "Ratón SteelSeries Rival 600",
@@ -127,7 +127,7 @@
       "inStock": 6
     },
     {
-      "slug": "15",
+      "slug": "raton-microsoft-arc-mouse",
       "image": "/products/mouse.webp",
       "description": "Ratón inalámbrico compacto para portátil",
       "title": "Ratón Microsoft Arc Mouse",
@@ -136,7 +136,7 @@
       "inStock": 11
     },
     {
-      "slug": "16",
+      "slug": "raton-hp-wired-mouse",
       "image": "/products/mouse.webp",
       "description": "Ratón ergonómico con cable para uso diario",
       "title": "Ratón HP Wired Mouse",
