@@ -11,6 +11,17 @@ export const generateMetadata=async({params}, parent)=>{
     
 }
 
+export const generateStaticParams=()=>{
+  return [
+    {categoria: "todo"},
+    {categoria: "auriculares"},
+    {categoria: "mouses"},
+    {categoria: "teclados"}
+  ]
+}
+
+export const revalidate = 3600
+
 
 const CategoriaPage = async({ params }) => {
   const { categoria } = params

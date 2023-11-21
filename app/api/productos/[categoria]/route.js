@@ -1,23 +1,22 @@
-import productos from "@/data/products.json";
-import { revalidateTag } from "next/cache";
-import { NextResponse } from "next/server";
 
-// const sleep=async(timer) = new Promise((resolve)=>setTimeout(resolve,timer))
+import { NextResponse } from "next/server";
+import { collection,getDocs,query, where } from "firebase/firestore";
+import { db } from "@/firebase/config";
+
 
 export const GET = async(request,{params}) => {
     const {categoria}=params
 
+    const productosRef = collection(db,"productos")
+
+    const q = categoria === "todo"
+                    ? productosRef
+                    : query(productosRef,where("category","==",categoria))
+
+    const querySnapshot= await getDocs(q)    
     
-    const items = productos.mockData
+    const docs = querySnapshot.docs.map(doc => doc.data())
 
-    const filterProducts = categoria === "todo"
-                          ? items
-                          : items.filter(e=>e.category === categoria)
-
+    return NextResponse.json(docs)
     
-    // await sleep(1000)
-
-    // revalidateTag("productos")
-
-    return NextResponse.json(filterProducts)
 }
