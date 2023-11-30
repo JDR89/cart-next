@@ -7,26 +7,7 @@ export const useCartContext = () => useContext(CartContext)
 
 export const CartProvider =({children})=>{
 
-    const [cart, setCart] = useState([{
-        "slug": "raton-microsoft-arc-mouse",
-        "image": "/products/mouse.webp",
-        "description": "Ratón inalámbrico compacto para portátil",
-        "title": "Ratón Microsoft Arc Mouse",
-        "category": "mouses",
-        "price": 120,
-        "inStock": 11,
-        "qty":1
-      },
-      {
-        "slug": "raton-hp-wired-mouse",
-        "image": "/products/mouse.webp",
-        "description": "Ratón ergonómico con cable para uso diario",
-        "title": "Ratón HP Wired Mouse",
-        "category": "mouses",
-        "price": 90,
-        "inStock": 4,
-        "qty":2
-      }])
+    const [cart, setCart] = useState([])
     
 
     const deleteItem=(slug)=>{

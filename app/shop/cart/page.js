@@ -4,13 +4,22 @@ import { Suspense } from "react";
 
 
 const page = () => {
+
+
+
   return (
-    <div className="flex flex-col md:flex-row min-h-screen mt-2 md:mt-10">
+    <div className="container mx-auto">
+      <h1 className="mt-5 font-semibold text-3xl">Cart</h1>
+    <div className="flex flex-col md:flex-row min-h-screen mt-2 md:mt-5">
+      
+      
       <div className="w-full md:w-1/2 p-4">
         <Suspense fallback={<div className="skeleton w-32 h-32"></div>}>
           <ProductCardCart />
         </Suspense>
       </div>
+
+
 
       <div className=" w-full md:w-1/2 p-4 mt-4 md:mt-0 ">
         <Suspense
@@ -30,6 +39,8 @@ const page = () => {
           <OrderCardCart />
         </Suspense>
       </div>
+    </div>
+
     </div>
   );
 };
