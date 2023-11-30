@@ -22,8 +22,10 @@ const ProductDetail = ({product}) => {
             <p className="mb-1">{product.description} </p> 
             <span>{product.price} USD</span>
           </div>
+
+          <hr/>
           
-          <QtyCounter/>
+          <QtyCounter product = {product}/>
           
           
         </div>

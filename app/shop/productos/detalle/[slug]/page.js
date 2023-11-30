@@ -13,11 +13,11 @@ const DetailPage = async ({params}) => {
   const {slug} = params
 
   const response = await fetch(`http://localhost:3000/api/producto/${slug}`,{
-    
     next:{
       revalidate:0
     }
   })
+  
   const product = await response.json()
  
 
