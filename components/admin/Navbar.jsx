@@ -18,8 +18,10 @@ const Navbar = () => {
 
       {
         isPathname && (
-          <div className="flex">
-         <Link href={"/admin"}><button className="btn btn-error">Logout</button></Link> 
+          <div className="flex justify-normal">
+          <Link href={"/admin/dashboard/create"}>  <button className="btn btn-success mr-2">Agregar</button></Link>
+         <Link href={"/admin"}><button className="btn btn-error">Salir</button></Link> 
+         
          </div>
         )
       }   
