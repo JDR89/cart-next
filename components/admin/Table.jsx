@@ -1,7 +1,9 @@
+import Image from "next/image";
+
 const Table = async() => {
   
   const response = await fetch("http://localhost:3000/api/productos/todo",{
-    next:{ revalidate : 0} 
+    cache:"no-store"
   })
   const items = await response.json()
 
@@ -32,7 +34,14 @@ const Table = async() => {
                 <td>{e.title}</td>
                 <td>{e.slug}</td>
                 <td>{e.description}</td>
-                <td>{e.image}</td>
+                <td>
+                  <Image
+                  width={80}
+                  height={80}
+                  src={e.image}
+                  alt="image product"
+                  />
+                </td>
                 <td>{e.inStock}</td>
                 <td>{e.category}</td>
                 <td>{e.price}</td>

@@ -1,17 +1,23 @@
+"use client"
 import Navbar from "@/components/admin/Navbar";
+import { useAuthContext } from "@/components/context/AuthContext";
 
-export const metadata = {
-  title: 'TecnoShop dashboard',
-  description: 'Dashboard',
-  
-}
 
-export default function AdminLayout({ children }) {
+
+export default function AdminLayout({ children,login }) {
+
+    const{user}=useAuthContext()
+
     return (
       
         <div >
           <Navbar/>
-          {children}
+          {
+            user.logged
+            ? children
+            : login
+          }
+          
         </div>
       
     )

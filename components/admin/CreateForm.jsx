@@ -1,57 +1,61 @@
-"use client"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { db,storage } from "@/firebase/config"
-import { doc, setDoc } from "firebase/firestore"
-import { ref } from "firebase/storage"
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { db, storage } from "@/firebase/config";
+import { doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
+const createProduct = async (values) => {
+  const storageRef = ref(storage, values.slug);
+  const fileSnapShot = await uploadBytes(storageRef);
 
-const createProduct=async(values)=>{
+  const fileURL = await getDownloadURL(fileSnapShot.ref);
 
-    const docRef = doc(db,"productos",values.slug)
-    return setDoc(docRef,{...values})
-        .then(()=>console.log("producto agregado"))
-}
-
+  const docRef = doc(db, "productos", values.slug);
+  return setDoc(docRef, {
+    ...values,
+    image: fileURL,
+  }).then(() => console.log("producto agregado"));
+};
 
 const CreateForm = () => {
+  const router = useRouter();
 
-    const router=useRouter()
+  const [values, setValues] = useState({
+    slug: "",
+    image: "",
+    description: "",
+    price: 0,
+    inStock: 0,
+    title: "",
+    category: "",
+  });
 
-    const [values, setValues] = useState({
-        slug:"",
-        image:"",
-        description:"",
-        price:0,
-        inStock:0,
-        title:"",
-        category:""
-    })
+//   const [file, setFile] = useState(null);
 
-    const onSubmit= async(e)=>{
-        e.preventDefault()
-        await createProduct(values)
-            .then(()=>router.push("/admin/dashboard"))
-    }
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    await createProduct(values).then(() => router.push("/admin/dashboard"));
+  };
 
-    const onChange=({target})=>{
-        const{name,value}=target
-        setValues({
-            ...values,
-            [name]:value
-        })
-    }
-
+  const onChange = ({ target }) => {
+    const { name, value } = target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
   return (
     <div className="flex justify-center ">
       <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-
         <form onSubmit={onSubmit} className="card-body gap-3">
-            <h2 className="flex justify-center text-xl font-medium">Agrega un nuevo producto</h2>
+          <h2 className="flex justify-center text-xl font-medium">
+            Agrega un nuevo producto
+          </h2>
           <div className="form-control">
-          <label className="ml-2 text-sm">Producto</label>
+            <label className="ml-2 text-sm">Producto</label>
             <input
               type="text"
               placeholder="Producto"
@@ -77,7 +81,7 @@ const CreateForm = () => {
           </div>
 
           <div className="form-control">
-          <label className="ml-2 text-sm">Descripción</label>
+            <label className="ml-2 text-sm">Descripción</label>
             <textarea
               type="text"
               placeholder="Descripción"
@@ -90,35 +94,22 @@ const CreateForm = () => {
           </div>
 
           <div className="form-control">
-          <label className="ml-2 text-sm">Categoría</label>
-            <input
-              type="text"
-              placeholder="Categoría"
-              className="input input-bordered"
+            <label className="ml-2 text-sm">Categoría</label>
+            <select
+              onChange={onChange}
               value={values.category}
               name="category"
-              onChange={onChange}
-              required
-            />
+              className="select select-bordered w-full max-w-xs"
+            >
+              <option value="auriculares">Auriculares</option>
+              <option value="camaras">Camaras</option>
+              <option value="mouses">Mouses</option>
+              <option value="teclados">Teclados</option>
+            </select>
           </div>
 
           <div className="form-control">
-          <label className="ml-2 text-sm">Imagen</label>
-            <input
-              type="text"
-              placeholder="Imagen"
-              className="input input-bordered"
-              value={values.image}
-              name="image"
-              onChange={onChange}
-              required
-            />
-          </div>
-
-        
-
-          <div className="form-control">
-          <label className="ml-2 text-sm">Stock</label>
+            <label className="ml-2 text-sm">Stock</label>
             <input
               type="number"
               placeholder="Stock"
@@ -130,10 +121,8 @@ const CreateForm = () => {
             />
           </div>
 
-
-
           <div className="form-control">
-          <label className="ml-2 text-sm">Precio</label>
+            <label className="ml-2 text-sm">Precio</label>
             <input
               type="number"
               placeholder="Precio"
@@ -145,15 +134,31 @@ const CreateForm = () => {
             />
           </div>
 
+          <div className="form-control">
+            <label className="ml-2 text-sm">Imagen</label>
+            <input
+              type="file"
+              placeholder="Imagen"
+              className="file-input file-input-bordered w-full max-w-xs"
+              value={values.image}
+              name="image"
+              onChange={onChange}
+              required
+            />
+          </div>
 
           <div className="form-control mt-6">
-            <button type="submit" className="btn btn-primary">Create</button>
+            <button type="submit" className="btn btn-primary">
+              Create
+            </button>
           </div>
-         <Link href={"/admin/dashboard"}><button className="btn btn-outline btn-error w-full">Cancel</button></Link> 
+          <Link href={"/admin"}>
+            <button className="btn btn-outline btn-error w-full">Cancel</button>
+          </Link>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CreateForm
+export default CreateForm;
