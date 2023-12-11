@@ -6,9 +6,9 @@ import { db, storage } from "@/firebase/config";
 import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-const createProduct = async (values) => {
+const createProduct = async (values,file) => {
   const storageRef = ref(storage, values.slug);
-  const fileSnapShot = await uploadBytes(storageRef);
+  const fileSnapShot = await uploadBytes(storageRef,file);
 
   const fileURL = await getDownloadURL(fileSnapShot.ref);
 
@@ -24,7 +24,7 @@ const CreateForm = () => {
 
   const [values, setValues] = useState({
     slug: "",
-    image: "",
+    
     description: "",
     price: 0,
     inStock: 0,
@@ -32,11 +32,11 @@ const CreateForm = () => {
     category: "",
   });
 
-//   const [file, setFile] = useState(null);
+  const [file, setFile] = useState(null);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await createProduct(values).then(() => router.push("/admin/dashboard"));
+    await createProduct(values,file).then(() => router.push("/admin"));
   };
 
   const onChange = ({ target }) => {
@@ -140,10 +140,9 @@ const CreateForm = () => {
               type="file"
               placeholder="Imagen"
               className="file-input file-input-bordered w-full max-w-xs"
-              value={values.image}
-              name="image"
-              onChange={onChange}
-              required
+              onChange={(e)=>setFile(e.target.files[0])}
+              allowMultiple={false}
+              
             />
           </div>
 
