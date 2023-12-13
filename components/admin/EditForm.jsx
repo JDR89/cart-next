@@ -1,58 +1,89 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { db, storage } from "@/firebase/config";
-import { doc, setDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes, deleteObject  } from "firebase/storage";
+import { useRouter } from "next/navigation";
 
 
-const createProduct = async (values,file) => {
-  const storageRef = ref(storage, values.slug);
-  const fileSnapShot = await uploadBytes(storageRef,file);
 
-  const fileURL = await getDownloadURL(fileSnapShot.ref);
 
-  const docRef = doc(db, "productos", values.slug);
-  return setDoc(docRef, {
-    ...values,
-    image: fileURL,
-  }).then(() => console.log("producto agregado"));
-};
+const updateProduct = async (slug, values, file) => {
 
-const CreateForm = () => {
-  const router = useRouter();
+    let fileURL = values.image
+
+    if (file) {
+        const storageRef = ref(storage, values.slug)
+        const fileSnapshot = await uploadBytes(storageRef, file)
+        fileURL = await getDownloadURL(fileSnapshot.ref)
+    }
+
+    const docRef = doc(db, "productos", slug)
+    return updateDoc(docRef, {
+        title: values.title,
+        description: values.description,
+        inStock: values.inStock,
+        price: values.price,
+        category: values.category,
+        image: fileURL
+    })
+        
+
+}
+
+
+
+
+
+
+const EditForm = ({ item }) => {
+  const { title, description, inStock, price, category, image,slug } = item;
+
+  const router = useRouter()
 
   const [values, setValues] = useState({
-    slug: "",
-    description: "",
-    price: 0,
-    inStock: 0,
-    title: "",
-    category: "",
+    title,
+    description,
+    inStock,
+    price,
+    category,
+    image,
+    slug
   });
-
   const [file, setFile] = useState(null);
+
+  const onChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await createProduct(values,file).then(() => router.push("/admin"));
+
+    await updateProduct(item.slug, values, file);
   };
 
-  const onChange = ({ target }) => {
-    const { name, value } = target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
+
+  const deleteItem=async(slug,image)=>{
+    
+    await deleteDoc(doc(db, "productos", slug))
+
+    const desertRef = ref(storage, image);
+     deleteObject(desertRef)
+            
+            
+            
+  }
 
   return (
     <div className="flex justify-center ">
       <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
         <form onSubmit={onSubmit} className="card-body gap-3">
           <h2 className="flex justify-center text-xl font-medium">
-            Agrega un nuevo producto
+            Editar producto
           </h2>
           <div className="form-control">
             <label className="ml-2 text-sm">Producto</label>
@@ -60,10 +91,10 @@ const CreateForm = () => {
               type="text"
               placeholder="Producto"
               className="input input-bordered"
-              value={values.title}
-              name="title"
               onChange={onChange}
               required
+              name="title"
+              value={values.title}
             />
           </div>
 
@@ -73,10 +104,10 @@ const CreateForm = () => {
               type="text"
               placeholder="Slug"
               className="input input-bordered"
-              value={values.slug}
-              name="slug"
               onChange={onChange}
               required
+              name="slug"
+              value={values.slug}
             />
           </div>
 
@@ -86,10 +117,10 @@ const CreateForm = () => {
               type="text"
               placeholder="Descripción"
               className="textarea textarea-bordered"
-              value={values.description}
-              name="description"
               onChange={onChange}
               required
+              name="description"
+              value={values.description}
             />
           </div>
 
@@ -97,9 +128,9 @@ const CreateForm = () => {
             <label className="ml-2 text-sm">Categoría</label>
             <select
               onChange={onChange}
-              value={values.category}
-              name="category"
               className="select select-bordered w-full max-w-xs"
+              name="category"
+              value={values.category}
             >
               <option value="auriculares">Auriculares</option>
               <option value="camaras">Camaras</option>
@@ -114,9 +145,9 @@ const CreateForm = () => {
               type="number"
               placeholder="Stock"
               className="input input-bordered"
-              value={values.inStock}
-              name="inStock"
               onChange={onChange}
+              name="inStock"
+              value={values.inStock}
               required
             />
           </div>
@@ -127,9 +158,9 @@ const CreateForm = () => {
               type="number"
               placeholder="Precio"
               className="input input-bordered"
-              value={values.price}
-              name="price"
               onChange={onChange}
+              name="price"
+              value={values.price}
               required
             />
           </div>
@@ -140,24 +171,55 @@ const CreateForm = () => {
               type="file"
               placeholder="Imagen"
               className="file-input file-input-bordered w-full max-w-xs"
-              onChange={(e)=>setFile(e.target.files[0])}
+              onChange={(e) => setFile(e.target.files[0])}
               allowmultiple="false"
-              
             />
           </div>
 
           <div className="form-control mt-6">
-            <button type="submit" className="btn btn-primary">
-              Create
+            
+            <button type="submit" className="btn btn-success">
+              Editar
             </button>
+            
           </div>
-          <Link href={"/admin"}>
-            <button className="btn btn-outline btn-error w-full">Cancel</button>
+          </form>
+
+
+          <div className="card-body">
+          
+            <button  onClick={() => document.getElementById("my_modal_5").showModal()}  className="btn btn-error" >
+              Eliminar
+            </button>
+          
+          <Link href={"/admin"} className="btn btn-outline   w-full mt-4 mb-8">
+            Cancel
           </Link>
-        </form>
+          </div>
       </div>
+
+
+
+      {/* MODAL */}
+
+      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Desea eliminar el producto?</h3>
+          
+          <div className="modal-action flex justify-center">
+            <form method="dialog">
+              
+              <button onClick={()=>deleteItem(slug,image)} className="btn bg-error">Eliminar</button>
+            </form>
+            <form method="dialog">
+              <button className="btn">Cancelar</button>
+             
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
 
-export default CreateForm;
+export default EditForm;
