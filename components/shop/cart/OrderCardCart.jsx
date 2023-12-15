@@ -1,11 +1,14 @@
 "use client"
+import { useAuthContext } from "@/components/context/AuthContext"
 import { useCartContext } from "@/components/context/CartContext"
+import Link from "next/link"
 
 
 
 const OrderCardCart = () => {
 
   const{cart}=useCartContext()
+  const{user}=useAuthContext()
 
   const totalQty = cart.reduce((total, item) => total + item.qty, 0);
   const totalPrice = cart.reduce((total, item) => total + item.qty * item.price, 0);
@@ -27,7 +30,18 @@ const OrderCardCart = () => {
             </div>
 
             <div className="card-actions ">
-              <button className="btn btn-primary w-full mt-3">Comprar</button>
+              {
+                user.logged ? <button className="btn btn-primary w-full mt-3">Comprar</button>
+                            : (<div role="alert" className="alert">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Loguearse para finalizar compra</span>
+                            <div>
+                              
+                              <Link href={"/login"} className="btn btn-sm btn-primary">Login</Link>
+                            </div>
+                          </div>)
+              }
+              
             </div>
           </div>
         </div>

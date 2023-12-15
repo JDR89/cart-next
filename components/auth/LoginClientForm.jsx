@@ -1,10 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-const LoginForm = () => {
-  const { registerUser, loginUser, googleLogin,user,logout } = useAuthContext();
+const LoginClientForm = () => {
+
+   const router = useRouter() 
+
+  const { registerUser, loginUser, googleLogin,user} = useAuthContext();
+
 
   const [values, setValues] = useState({
     email: "",
@@ -24,11 +30,9 @@ const LoginForm = () => {
     
   };
 
+
   useEffect(() => {
-     (user.logged && !user.isAdmin) && logout() , setValues({
-      email: "",
-      password: "",
-     })
+    user.logged && router.push("/shop/productos/todo")
   }, [user])
   
 
@@ -82,6 +86,25 @@ const LoginForm = () => {
               </button>
             </div>
 
+            <button
+              className="btn btn-primary "
+              onClick={googleLogin}
+            >
+              Ingresa con Google
+            </button>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => registerUser(values)}
+            >
+              Create account
+            </button>
+
+
+            <button onClick={()=>router.back()} className="mt-2 ml-1 font-medium " >
+                Volver
+            </button>
+            
           </form>
         </div>
       </div>
@@ -89,4 +112,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LoginClientForm;

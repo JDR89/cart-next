@@ -8,12 +8,14 @@ export default function AdminLayout({ children,login }) {
 
     const{user}=useAuthContext()
 
+    
+
     return (
       
         <div >
           <Navbar/>
           {
-            user.logged
+            user.isAdmin
             ? children
             : login
           }

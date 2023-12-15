@@ -16,7 +16,8 @@ export const AuthProvider =({children})=>{
     const [user, setUser] = useState({
         logged: false,
         email: null,
-        uid:null
+        uid:null,
+        isAdmin:false
     })
 
     const registerUser=async(values)=>{
@@ -39,25 +40,28 @@ export const AuthProvider =({children})=>{
     useEffect(() => {
       onAuthStateChanged(auth,(user)=>{
         
+        
 
         if(user){
             setUser({
                 logged:true,
                 email:user.email,
-                uid:user.uid
+                uid:user.uid,
+                isAdmin:(user.uid === "wNGQ7qz1MRcKfDRGktPKTuTkIcv1") ? true : false
             })
         } else{
             setUser({
                 logged: false,
                 email:null,
-                uid:null
+                uid:null,
+                isAdmin: false
             })
         }
-
+            
       })
     },[])
     
-
+    
 
     return(
         <AuthContext.Provider value={{
