@@ -80,7 +80,7 @@ const EditForm = ({ item }) => {
 
   return (
     <div className="flex justify-center ">
-      <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 ">
         <form onSubmit={onSubmit} className="card-body gap-3">
           <h2 className="flex justify-center text-xl font-medium">
             Editar producto
@@ -186,7 +186,7 @@ const EditForm = ({ item }) => {
           </form>
 
 
-          <div className="card-body">
+          <div className="card w-2/3 mx-auto">
           
             <button  onClick={() => document.getElementById("my_modal_5").showModal()}  className="btn btn-error" >
               Eliminar
