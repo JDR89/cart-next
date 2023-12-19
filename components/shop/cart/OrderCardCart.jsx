@@ -14,7 +14,7 @@ const OrderCardCart = () => {
     0
   );
 
-  console.log(user)
+  
 
   return (
     <div className="mx-auto card max-w-[30rem] bg-base-100 shadow-xl">
@@ -63,7 +63,7 @@ const OrderCardCart = () => {
 
       {/* MODAL */}
 
-      <dialog id="my_modal_2" className="modal">
+      {/* <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Hola!</h3>
           
@@ -72,7 +72,11 @@ const OrderCardCart = () => {
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
         </form>
-      </dialog>
+      </dialog> */}
+      
+      {/* boton para dispararlo */}
+      {/* () => document.getElementById("my_modal_2").showModal() */}
+
     </div>
   );
 };
