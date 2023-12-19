@@ -5,8 +5,8 @@ import Link from "next/link";
 
 const Table = async () => {
 
-
-  const response = await fetch("http://localhost:3000/api/productos/todo", {
+  
+  const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/productos/todo`, {
     next: { revalidate: 0 } ,
     
   });

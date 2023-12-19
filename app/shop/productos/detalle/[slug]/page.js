@@ -12,7 +12,7 @@ export const generateMetadata=async({params}, parent)=>{
 const DetailPage = async ({params}) => {
   const {slug} = params
 
-  const response = await fetch(`http://localhost:3000/api/producto/${slug}`,{
+  const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/producto/${slug}`,{
     next:{
       revalidate:0
     }

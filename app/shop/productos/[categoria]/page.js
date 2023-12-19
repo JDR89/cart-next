@@ -26,7 +26,7 @@ const CategoriaPage = async({ params }) => {
   const { categoria } = params
   
 
-  const response = await fetch(`http://localhost:3000/api/productos/${categoria}`,{
+  const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/productos/${categoria}`,{
     next:{
       revalidate:0
     }

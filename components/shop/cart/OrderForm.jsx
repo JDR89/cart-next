@@ -52,6 +52,8 @@ const OrderForm = () => {
 const onSubmit=async(e)=>{
   e.preventDefault()
 
+  if(values.direccion === "" || values.direccion.length <=6 )return
+
   const result = await createOrder(values, cart)
       console.log(result)
  
@@ -70,8 +72,10 @@ const onSubmit=async(e)=>{
             name="direccion"
             value={values.direccion}
             onChange={onChange}
+            required
           />
 
+          
           <input
             type="number"
             placeholder="Telefono de contacto"
@@ -79,6 +83,7 @@ const onSubmit=async(e)=>{
             name="telefono"
             value={values.telefono}
             onChange={onChange}
+            required
           />
 
           <div className="mt-2">
@@ -100,7 +105,7 @@ const onSubmit=async(e)=>{
       <button
         className="btn btn-primary w-full mt-3"
         onClick={onSubmit}
-        disabled={cart.length <= 0}
+        disabled={cart.length <= 0 || values.direccion === "" || values.direccion.length <= 6  }
       >
         Continuar compra
       </button>

@@ -5,18 +5,27 @@ import { db } from "@/firebase/config";
 
 
 export const GET = async(request,{params}) => {
-    const {categoria}=params
 
-    const productosRef = collection(db,"productos")
+    try {
+        const {categoria}=params
 
-    const q = categoria === "todo"
-                    ? productosRef
-                    : query(productosRef,where("category","==",categoria))
-
-    const querySnapshot= await getDocs(q)    
+        const productosRef = collection(db,"productos")
     
-    const docs = querySnapshot.docs.map(doc => doc.data())
+        const q = categoria === "todo"
+                        ? productosRef
+                        : query(productosRef,where("category","==",categoria))
+    
+        const querySnapshot= await getDocs(q)    
+        
+        const docs = querySnapshot.docs.map(doc => doc.data())
+    
+        return NextResponse.json(docs)
+    } catch (error) {
+        console.error("Error en la solicitud GET:", error);
 
-    return NextResponse.json(docs)
+        // Puedes retornar una respuesta personalizada en caso de error, por ejemplo:
+        return NextResponse.json({ error: "Hubo un error en la solicitud GET." }, { status: 500 });
+    }
+
     
 }
