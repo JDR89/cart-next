@@ -26,8 +26,8 @@ const CreateForm = () => {
   const [values, setValues] = useState({
     slug: "",
     description: "",
-    price: 0,
-    inStock: 0,
+    price: Number(0),
+    inStock: Number(0),
     title: "",
     category: "",
   });
@@ -41,9 +41,10 @@ const CreateForm = () => {
 
   const onChange = ({ target }) => {
     const { name, value } = target;
+    const updatedValue = name === 'inStock' || name === 'price' ? parseFloat(value) : value;
     setValues({
       ...values,
-      [name]: value,
+      [name]: updatedValue,
     });
   };
 
