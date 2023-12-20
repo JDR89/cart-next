@@ -10,7 +10,8 @@ export const generateMetadata=async({params}, parent)=>{
 }
 
 const DetailPage = async ({params}) => {
-  const {slug} = params
+  try {
+    const {slug} = params
 
   const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/producto/${slug}`,{
     next:{
@@ -28,6 +29,10 @@ const DetailPage = async ({params}) => {
       <ProductDetail key={product.slug} product={product}/>
    </>
   )
+  } catch (error) {
+    console.error('Error al obtener los datos:', error);
+    return <div>Error al cargar los datos</div>;
+  }
 }
 
 

@@ -18,7 +18,7 @@ export const generateMetadata=async({params}, parent)=>{
 const CategoriaPage = async({ params }) => {
   const { categoria } = params
   
-
+try {
   const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/productos/${categoria}`,{
     next:{
       revalidate:0
@@ -53,6 +53,11 @@ const CategoriaPage = async({ params }) => {
       
     </>
   );
+} catch (error) {
+  console.error('Error al obtener los datos:', error);
+  return <div>Error al cargar los datos</div>;
+}
+ 
 };
 
 export default CategoriaPage;
