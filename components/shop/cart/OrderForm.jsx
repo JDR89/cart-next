@@ -11,7 +11,7 @@ const OrderForm = () => {
   const { user } = useAuthContext();
   const { cart,emptyCart } = useCartContext();
  
-
+  const [loading, setLoading] = useState(false)
   const [values, setValues] = useState({
     direccion: "",
     email: user.email,
@@ -31,6 +31,9 @@ const OrderForm = () => {
   
 
   const createOrder = async (values, items) => {
+
+    setLoading(true)
+
     const order = {
         client: values,
         items: items.map(item => ({
@@ -43,6 +46,7 @@ const OrderForm = () => {
         date: new Date().toISOString(),
         
     }
+      // CREACION ORDER
 
     const docId = Timestamp.fromDate(new Date()).toMillis()
     const orderRef = doc(db, "orders", String(docId))
@@ -59,7 +63,10 @@ const OrderForm = () => {
   
     });
   
-    await batch.commit();
+    await batch.commit()
+          .then(()=>setLoading(false))
+
+    
     
 
   return docId
@@ -122,13 +129,19 @@ const onSubmit=async(e)=>{
         </form>
       )}
 
-      <button
-        className="btn btn-primary w-full mt-3"
-        onClick={onSubmit}
-        disabled={cart.length <= 0 || values.direccion === "" || values.direccion.length <= 6 }
-      >
-        Continuar compra
-      </button>
+      {
+        loading  ?<div className="flex justify-center mt-7"><span className="loading loading-dots loading-lg"></span></div>
+                :<button
+                className="btn btn-primary w-full mt-3"
+                onClick={onSubmit}
+                disabled={cart.length <= 0 || values.direccion === "" || values.direccion.length <= 6 }
+              >
+                Continuar compra
+              </button>
+             
+      }
+
+      
     </div>
   );
 };
