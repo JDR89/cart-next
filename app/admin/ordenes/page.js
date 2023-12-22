@@ -2,6 +2,8 @@ import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
 
+
+
 const getOrders = async () => {
   const ordersRef = collection(db, "orders");
   const querySnapshot = await getDocs(ordersRef);
