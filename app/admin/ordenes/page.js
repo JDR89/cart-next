@@ -1,21 +1,26 @@
+"use client"
 import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
+import { useEffect } from "react";
 
 
 
 
 
-const Orders = async () => {
+const page = async () => {
 
   const getOrders = async () => {
     const ordersRef = collection(db, "orders");
     const querySnapshot = await getDocs(ordersRef);
-    const docs = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    const docs = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
     return docs;
   };
   
   const orders = await getOrders();
+
+  
+  
 
   return (
     <div className="overflow-x-auto min-h-[90vh] mx-auto mt-5">
@@ -80,4 +85,4 @@ const Orders = async () => {
   );
 };
 
-export default Orders;
+export default page;
