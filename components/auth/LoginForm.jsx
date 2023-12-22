@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 
 const LoginForm = () => {
-  const { registerUser, loginUser, googleLogin,user,logout } = useAuthContext();
+  const { loginUser,user,logout } = useAuthContext();
 
   const [values, setValues] = useState({
     email: "",

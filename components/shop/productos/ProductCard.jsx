@@ -9,14 +9,14 @@ const ProductCard = ({ products }) => {
       <figure className="bg-base-200">
         <Image
           src={products.image}
-          className="p-1 w-full"
+          className="p-1 w-full "
           alt="imagen producto"
           width={300}
           height={300}
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{products.title}</h2>
+        <h2 className="card-title flex">{products.title} <span className=" badge badge-accent badge-outline text-sm ml-auto ">Stock:{products.inStock}</span> </h2>
         <p>{products.description}</p>
         <div className="card-actions justify-center ">
           <Link className="btn btn-primary w-2/3" href={`/shop/productos/detalle/${products.slug}`}>

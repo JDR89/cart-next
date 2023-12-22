@@ -19,7 +19,7 @@ const ProductDetail = ({ product }) => {
           />
         </Suspense>
         <div>
-          <h2 className="text-5xl font-bold">{product.title}</h2>
+          <h2 className="text-5xl font-bold">{product.title} <span className=" badge badge-accent badge-outline text-sm ml-auto ">Stock:{product.inStock}</span></h2>
           <div className="py-6">
             <p className="mb-1">{product.description} </p>
             <span>{product.price} USD</span>

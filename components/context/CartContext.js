@@ -38,6 +38,10 @@ export const CartProvider =({children})=>{
        }
     }
 
+    const emptyCart=()=>{
+        setCart([])
+    }
+
     
 
 
@@ -45,7 +49,8 @@ export const CartProvider =({children})=>{
         <CartContext.Provider value={{
             isInCart,
             deleteItem,
-            cart
+            cart,
+            emptyCart
         }}
         >
             {children}

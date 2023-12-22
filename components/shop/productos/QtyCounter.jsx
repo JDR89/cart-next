@@ -10,7 +10,7 @@ const QtyCounter = ({product}) => {
 
   const [counter, setCounter] = useState(0)
 
-  // CONTADOR
+ 
   const add =()=>{
     setCounter(counter + 1)
   }
@@ -18,7 +18,7 @@ const QtyCounter = ({product}) => {
   const remove =()=>{
     setCounter(counter - 1)
   }
-  // FIN CONTADOR
+ 
 
 
   const addProductWithQty=(qty)=>{

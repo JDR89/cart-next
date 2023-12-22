@@ -5,10 +5,12 @@ import { useCartContext } from "@/components/context/CartContext";
 import { useState } from "react";
 import { db } from "@/firebase/config"
 import { setDoc, doc, Timestamp } from "firebase/firestore"
+import Swal from "sweetalert2";
 
 const OrderForm = () => {
   const { user } = useAuthContext();
-  const { cart } = useCartContext();
+  const { cart,emptyCart } = useCartContext();
+ 
 
   const [values, setValues] = useState({
     direccion: "",
@@ -51,14 +53,18 @@ const OrderForm = () => {
 
 const onSubmit=async(e)=>{
   e.preventDefault()
-
-  if(values.direccion === "" || values.direccion.length <=6 )return
-
-  const result = await createOrder(values, cart)
-      console.log(result)
+  
+    const result = await createOrder(values, cart);
+    
+    
+    Swal.fire({
+      title: "Su numero de compra es:",
+      text: String(result),
+    }).then(()=>emptyCart())
  
-
 }
+
+
   
 
   return (
@@ -105,7 +111,7 @@ const onSubmit=async(e)=>{
       <button
         className="btn btn-primary w-full mt-3"
         onClick={onSubmit}
-        disabled={cart.length <= 0 || values.direccion === "" || values.direccion.length <= 6  }
+        disabled={cart.length <= 0 || values.direccion === "" || values.direccion.length <= 6 }
       >
         Continuar compra
       </button>

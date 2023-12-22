@@ -41,7 +41,7 @@ export const AuthProvider =({children})=>{
       onAuthStateChanged(auth,(user)=>{
         
         
-
+        // CARGAR EN UNA VARIABLE DE ENT EL ID
         if(user){
             setUser({
                 logged:true,

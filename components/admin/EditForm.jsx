@@ -3,45 +3,20 @@ import Link from "next/link";
 import { useState } from "react";
 import { db, storage } from "@/firebase/config";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes, deleteObject  } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  deleteObject,
+} from "firebase/storage";
 import { useRouter } from "next/navigation";
 
-
-
-
-const updateProduct = async (slug, values, file) => {
-
-    let fileURL = values.image
-
-    if (file) {
-        const storageRef = ref(storage, values.slug)
-        const fileSnapshot = await uploadBytes(storageRef, file)
-        fileURL = await getDownloadURL(fileSnapshot.ref)
-    }
-
-    const docRef = doc(db, "productos", slug)
-    return updateDoc(docRef, {
-        title: values.title,
-        description: values.description,
-        inStock: values.inStock,
-        price: values.price,
-        category: values.category,
-        image: fileURL
-    })
-        
-
-}
-
-
-
-
-
-
 const EditForm = ({ item }) => {
-  const { title, description, inStock, price, category, image,slug } = item;
+  const { title, description, inStock, price, category, image, slug } = item;
 
-  const router = useRouter()
+  const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     title,
     description,
@@ -49,7 +24,7 @@ const EditForm = ({ item }) => {
     price,
     category,
     image,
-    slug
+    slug,
   });
   const [file, setFile] = useState(null);
 
@@ -62,21 +37,39 @@ const EditForm = ({ item }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    await updateProduct(item.slug, values, file);
+    setLoading(true);
+    await updateProduct(item.slug, values, file)
+      .then(() => router.push("/admin"))
+      .then(() => router.refresh())
+      .then(() => setLoading(false));
   };
 
+  const updateProduct = async (slug, values, file) => {
+    let fileURL = values.image;
 
-  const deleteItem=async(slug,image)=>{
-    
-    await deleteDoc(doc(db, "productos", slug))
+    if (file) {
+      const storageRef = ref(storage, values.slug);
+      const fileSnapshot = await uploadBytes(storageRef, file);
+      fileURL = await getDownloadURL(fileSnapshot.ref);
+    }
+
+    const docRef = doc(db, "productos", slug);
+    return updateDoc(docRef, {
+      title: values.title,
+      description: values.description,
+      inStock: values.inStock,
+      price: values.price,
+      category: values.category,
+      image: fileURL,
+    });
+  };
+
+  const deleteItem = async (slug, image) => {
+    await deleteDoc(doc(db, "productos", slug));
 
     const desertRef = ref(storage, image);
-     deleteObject(desertRef)
-            
-            
-            
-  }
+    deleteObject(desertRef);
+  };
 
   return (
     <div className="flex justify-center ">
@@ -177,43 +170,54 @@ const EditForm = ({ item }) => {
           </div>
 
           <div className="form-control mt-6">
-            
-            <button type="submit" className="btn btn-success">
-              Editar
-            </button>
-            
+            {loading ? (
+              <div className="flex justify-center">
+                <span className="loading loading-dots loading-md "></span>
+              </div>
+              
+            ) : (
+              <button type="submit" className="btn btn-success ">
+                Editar
+              </button>
+            )}
           </div>
-          </form>
+        </form>
 
+        <div className="card w-2/3 mx-auto">
+          <button
+            onClick={() => document.getElementById("my_modal_5").showModal()}
+            className="btn btn-error"
+          >
+            Eliminar
+          </button>
 
-          <div className="card w-2/3 mx-auto">
-          
-            <button  onClick={() => document.getElementById("my_modal_5").showModal()}  className="btn btn-error" >
-              Eliminar
-            </button>
-          
           <Link href={"/admin"} className="btn btn-outline   w-full mt-4 mb-8">
             Cancel
           </Link>
-          </div>
+        </div>
       </div>
-
-
 
       {/* MODAL */}
 
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Desea eliminar el producto?</h3>
-          
+
           <div className="modal-action flex justify-center">
             <form method="dialog">
-              
-              <button onClick={()=>deleteItem(slug,image)} className="btn bg-error">Eliminar</button>
+              <button
+                onClick={() =>
+                  deleteItem(slug, image)
+                    .then(() => router.push("/admin"))
+                    .then(() => router.refresh())
+                }
+                className="btn bg-error"
+              >
+                Eliminar
+              </button>
             </form>
             <form method="dialog">
               <button className="btn">Cancelar</button>
-             
             </form>
           </div>
         </div>

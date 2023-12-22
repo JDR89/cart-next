@@ -6,10 +6,9 @@ import { db, storage } from "@/firebase/config";
 import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-
-const createProduct = async (values,file) => {
+const createProduct = async (values, file) => {
   const storageRef = ref(storage, values.slug);
-  const fileSnapShot = await uploadBytes(storageRef,file);
+  const fileSnapShot = await uploadBytes(storageRef, file);
 
   const fileURL = await getDownloadURL(fileSnapShot.ref);
 
@@ -22,6 +21,7 @@ const createProduct = async (values,file) => {
 
 const CreateForm = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const [values, setValues] = useState({
     slug: "",
@@ -36,12 +36,17 @@ const CreateForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await createProduct(values,file).then(() => router.push("/admin"));
+    setLoading(true);
+    await createProduct(values, file)
+      .then(() => router.push("/admin"))
+      .then(() => router.refresh());
+    setLoading(false);
   };
 
   const onChange = ({ target }) => {
     const { name, value } = target;
-    const updatedValue = name === 'inStock' || name === 'price' ? parseFloat(value) : value;
+    const updatedValue =
+      name === "inStock" || name === "price" ? parseFloat(value) : value;
     setValues({
       ...values,
       [name]: updatedValue,
@@ -141,20 +146,32 @@ const CreateForm = () => {
               type="file"
               placeholder="Imagen"
               className="file-input file-input-bordered w-full max-w-xs"
-              onChange={(e)=>setFile(e.target.files[0])}
+              onChange={(e) => setFile(e.target.files[0])}
               allowmultiple="false"
-              
             />
           </div>
 
           <div className="form-control mt-6">
-            <button type="submit" className="btn btn-primary">
-              Create
-            </button>
+            {loading ? (
+              <div className="flex justify-center flex-col items-center ">
+                <h4>Redirigiendo al dashboard</h4>
+                <span className="loading loading-dots loading-md "></span>
+              </div>
+            ) : (
+              <button type="submit" className="btn btn-primary">
+                Create
+              </button>
+            )}
           </div>
-          <Link href={"/admin"}>
-            <button className="btn btn-outline btn-error w-full">Cancel</button>
-          </Link>
+          {loading ? (
+            <></>
+          ) : (
+            <Link href={"/admin"}>
+              <button className="btn btn-outline btn-error w-full">
+                Cancel
+              </button>
+            </Link>
+          )}
         </form>
       </div>
     </div>

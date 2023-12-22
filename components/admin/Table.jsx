@@ -1,5 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
+
+
+import TableItems from "./TableItems";
 
 
 
@@ -7,16 +8,15 @@ const Table = async () => {
 
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/productos/todo`, {
-      next: { revalidate: 0 } ,
+      next: { revalidate: 0 } , 
       
     });
     const items = await response.json();
-  
-  
+
    
   
     return (
-      <div className="overflow-x-auto min-h-[90vh]">
+      <div className="overflow-x-auto min-h-[90vh] mx-auto">
         <table className="table">
           {/* head */}
           <thead>
@@ -33,41 +33,16 @@ const Table = async () => {
           </thead>
           <tbody>
             {/* row  */}
-  
-            {items.map((e) => (
-              <tr key={e.slug}>
-                <td>{e.title}</td>
-                <td>{e.slug}</td>
-                <td>{e.description}</td>
-                <td>
-                  <Image
-                    width={80}
-                    height={80}
-                    src={e.image}
-                    alt="image product"
-                  />
-                </td>
-                <td>{e.inStock}</td>
-                <td>{e.category}</td>
-                <td>{e.price}</td>
-                <td className="">
-                  <Link
-                    href={`/admin/edit/${e.slug}`}
-                    className="rounded bg-success p-2 text-black mr-1"
-                  >
-                    Editar
-                  </Link>
-  
-                </td>
-              </tr>
-            ))}
+            
+              <TableItems items={items}/>
+            
           </tbody>
         </table>
       </div>
     );
   } catch (error) {
     console.error('Error al obtener los datos:', error);
-    return <div>Error al cargar los datos</div>;
+    return <div className="min-h-screen flex justify-center">Error al cargar los datos</div>;
   }
  
  
