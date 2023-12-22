@@ -42,7 +42,7 @@ const CartWidget = () => {
           <span className="text-info">Total: ${totalPrice}</span>
           <div className="card-actions">
             <button onClick={()=>router.push("/shop/cart")} className="btn btn-primary btn-block">
-              View cart
+              ir al carrito
             </button>
           </div>
         </div>

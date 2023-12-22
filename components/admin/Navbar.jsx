@@ -15,13 +15,13 @@ const Navbar = () => {
 
 
       {
-        user.isAdmin  && (
+        user.isAdmin  ? (
           <div className="flex justify-normal">
-         
+        
          <button onClick={logout} className={` btn btn-error `}>Salir</button>
          
          </div>
-        )
+        ):<></>
       }   
 
       </div>

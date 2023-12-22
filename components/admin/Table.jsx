@@ -16,7 +16,7 @@ const Table = async () => {
    
   
     return (
-      <div className="overflow-x-auto min-h-[90vh] mx-auto">
+      <div className="overflow-x-auto min-h-[90vh] mx-auto ">
         <table className="table">
           {/* head */}
           <thead>

@@ -37,7 +37,8 @@ const TableItems = ({items}) => {
   
                 </td>
               </tr>
-            ))}
+            ))
+    }
     </>
   )
 }

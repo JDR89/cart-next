@@ -6,10 +6,13 @@ const DashboardPage = () => {
   return (
     <div className="min-h-screen">
       <div className="flex justify-between ">
-      <div className="flex justify-start ml-4 mt-4 ">
-      <h1 className="text-2xl font-semibold  ">Dashboard</h1>
+      <div className="flex justify-start ml-4 mt-6">
+      <h1 className=" text-2xl font-semibold">Dashboard</h1>
       </div>
       <div className="flex justify-center mt-5 mb-5  md:mt-5 md:mr-8 ">
+        <Link href={"/admin/ordenes"}>
+        <button className="btn btn-success mr-2 ">Ordenes</button>
+        </Link>
         <Link href={"/admin/create"}>
           
           <button className="btn btn-success mr-2 ">Agregar</button>
