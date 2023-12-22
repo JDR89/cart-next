@@ -1,5 +1,6 @@
 import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
+import Link from "next/link";
 
 const getOrders = async () => {
   const ordersRef = collection(db, "orders");
@@ -13,6 +14,10 @@ const Orders = async () => {
 
   return (
     <div className="overflow-x-auto min-h-[90vh] mx-auto mt-5">
+      <div className="flex justify-end mr-5">
+        <Link className="btn btn-outline" href={"/admin"}>Volver</Link>
+      </div>
+      
       <table className="table">
         {/* head */}
         <thead>
