@@ -4,7 +4,7 @@ import { useAuthContext } from "@/components/context/AuthContext";
 import { useCartContext } from "@/components/context/CartContext";
 import { useState } from "react";
 import { db } from "@/firebase/config"
-import { setDoc, doc, Timestamp } from "firebase/firestore"
+import { setDoc, doc, Timestamp, writeBatch } from "firebase/firestore"
 import Swal from "sweetalert2";
 
 const OrderForm = () => {
@@ -47,6 +47,20 @@ const OrderForm = () => {
     const docId = Timestamp.fromDate(new Date()).toMillis()
     const orderRef = doc(db, "orders", String(docId))
     await setDoc(orderRef, order)
+
+
+    // ACTUALIZACION DE STOCK
+    const batch = writeBatch(db);
+
+    items.forEach((cartProduct) => {
+      const productRef = doc(db, "productos", cartProduct.slug);
+      const newStock = cartProduct.inStock - cartProduct.qty;
+      batch.update(productRef, { inStock: newStock });
+  
+    });
+  
+    await batch.commit();
+    
 
   return docId
 }
