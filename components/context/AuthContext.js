@@ -12,6 +12,7 @@ export const useAuthContext =()=> useContext(AuthContext)
 
 export const AuthProvider =({children})=>{
 
+    const adminCredential = process.env.NEXT_PUBLIC_CREDENTIAL_ADMIN
     
     const [user, setUser] = useState({
         logged: false,
@@ -47,7 +48,7 @@ export const AuthProvider =({children})=>{
                 logged:true,
                 email:user.email,
                 uid:user.uid,
-                isAdmin:(user.uid === "wNGQ7qz1MRcKfDRGktPKTuTkIcv1") ? true : false
+                isAdmin:(user.uid === adminCredential) ? true : false
             })
         } else{
             setUser({
