@@ -8,11 +8,11 @@ const AuthContext = createContext()
 
 export const useAuthContext =()=> useContext(AuthContext)
 
-
+const adminCredential = process.env.NEXT_PUBLIC_CREDENTIAL_ADMIN
 
 export const AuthProvider =({children})=>{
 
-    const adminCredential = process.env.NEXT_PUBLIC_CREDENTIAL_ADMIN
+    
     
     const [user, setUser] = useState({
         logged: false,
