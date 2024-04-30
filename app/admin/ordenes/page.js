@@ -1,5 +1,5 @@
 
-import { BtnDeleteOrder } from "@/components/admin/BtnDeleteOrder";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
@@ -80,9 +80,11 @@ const page = async () => {
                 {e.client?.telefono}
               </td>
 
-              {/* <td>
-                <BtnDeleteOrder  />
-              </td> */}
+              <td>
+                <button>
+                <FaRegTrashAlt size={20} />
+                </button>
+              </td>
 
             </tr>
           ))}
