@@ -80,9 +80,9 @@ const page = async () => {
                 {e.client?.telefono}
               </td>
 
-              <td>
+              {/* <td>
                 <BtnDeleteOrder  />
-              </td>
+              </td> */}
 
             </tr>
           ))}

@@ -1,6 +1,4 @@
-"use client"
-import { db } from "@/firebase/config";
-import { collection, deleteDoc, getDocs } from "firebase/firestore";
+
 import { FaRegTrashAlt } from "react-icons/fa";
 export const BtnDeleteOrder = () => {
 
