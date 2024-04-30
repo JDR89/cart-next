@@ -1,8 +1,9 @@
-"use client"
+
+import { BtnDeleteOrder } from "@/components/admin/BtnDeleteOrder";
 import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
-import { useEffect } from "react";
+
 
 
 
@@ -38,7 +39,8 @@ const page = async () => {
             <th>Cantidad</th>
             <th>Total</th>
             <th>Dirección</th>
-            <th>Telefono</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -77,6 +79,11 @@ const page = async () => {
               <td>
                 {e.client?.telefono}
               </td>
+
+              <td>
+                <BtnDeleteOrder  buyId={e.buyId} />
+              </td>
+
             </tr>
           ))}
         </tbody>
