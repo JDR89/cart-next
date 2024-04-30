@@ -1,9 +1,8 @@
-
-import { FaRegTrashAlt } from "react-icons/fa";
+"use client"
 import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
-
+import { useEffect } from "react";
 
 
 
@@ -39,8 +38,7 @@ const page = async () => {
             <th>Cantidad</th>
             <th>Total</th>
             <th>Dirección</th>
-            <th>Teléfono</th>
-            <th>Acciones</th>
+            <th>Telefono</th>
           </tr>
         </thead>
         <tbody>
@@ -79,13 +77,6 @@ const page = async () => {
               <td>
                 {e.client?.telefono}
               </td>
-
-              <td>
-                <button>
-                <FaRegTrashAlt size={20} />
-                </button>
-              </td>
-
             </tr>
           ))}
         </tbody>
