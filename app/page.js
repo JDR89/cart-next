@@ -21,7 +21,7 @@ export default function Home() {
         <div className="hero-overlay max-h-56 bg-opacity-40"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
-            <h1 className="mb-12 text-6xl font-bold">Hello word2</h1>
+            <h1 className="mb-12 text-6xl font-bold">Hello word</h1>
             <p className="mb-5">
               Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
