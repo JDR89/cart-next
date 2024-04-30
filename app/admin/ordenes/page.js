@@ -81,7 +81,7 @@ const page = async () => {
               </td>
 
               <td>
-                <BtnDeleteOrder  buyId={e.buyId} />
+                <BtnDeleteOrder  />
               </td>
 
             </tr>

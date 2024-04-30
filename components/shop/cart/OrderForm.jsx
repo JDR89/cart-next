@@ -44,7 +44,7 @@ const OrderForm = () => {
             total: item.qty*item.price
         })),
         date: new Date().toISOString(),
-        buyId:Math.random().toString(36).substring(2, 20)
+        
     }
       // CREACION ORDER
 
