@@ -1,8 +1,9 @@
-"use client"
+
 import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
-import { useEffect } from "react";
+
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 
 
@@ -39,6 +40,7 @@ const page = async () => {
             <th>Total</th>
             <th>Dirección</th>
             <th>Telefono</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -76,6 +78,13 @@ const page = async () => {
 
               <td>
                 {e.client?.telefono}
+              </td>
+
+              <td>
+                <button>
+                 <RiDeleteBin5Fill size={20} />
+
+                </button>
               </td>
             </tr>
           ))}
