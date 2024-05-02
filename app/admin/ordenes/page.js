@@ -1,4 +1,4 @@
-
+"use client"
 import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
