@@ -2,6 +2,7 @@
 import { db } from "@/firebase/config";
 import { collection, deleteDoc, getDocs } from "firebase/firestore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
@@ -11,6 +12,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 
 const page = async () => {
 
+  const router = useRouter();
   const getOrders = async () => {
     const ordersRef = collection(db, "orders");
     const querySnapshot = await getDocs(ordersRef);
@@ -19,7 +21,7 @@ const page = async () => {
   };
   
   const orders = await getOrders();
-console.log(orders)
+
   
   const deleteOrder = async (date) => {
     
@@ -37,6 +39,8 @@ console.log(orders)
     } catch (error) {
       console.error("Error al eliminar el documento:", error);
     }
+
+    router.refresh()
   };
 
   return (
