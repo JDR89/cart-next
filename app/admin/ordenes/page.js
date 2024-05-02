@@ -1,6 +1,6 @@
 "use client"
 import { db } from "@/firebase/config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, getDocs } from "firebase/firestore";
 import Link from "next/link";
 
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -19,9 +19,25 @@ const page = async () => {
   };
   
   const orders = await getOrders();
+console.log(orders)
+  
+  const deleteOrder = async (date) => {
+    
+    try {
+      const ordersRef = collection(db, "orders");
+      const querySnapshot = await getDocs(ordersRef);
 
-  
-  
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.date === date) {
+          deleteDoc(doc.ref);
+          console.log("Documento eliminado:", doc.id);
+        }
+      });
+    } catch (error) {
+      console.error("Error al eliminar el documento:", error);
+    }
+  };
 
   return (
     <div className="overflow-x-auto min-h-[90vh] mx-auto mt-5">
@@ -81,7 +97,7 @@ const page = async () => {
               </td>
 
               <td>
-                <button>
+                <button onClick={() => deleteOrder(e.date)}>
                  <RiDeleteBin5Fill size={20} />
 
                 </button>
