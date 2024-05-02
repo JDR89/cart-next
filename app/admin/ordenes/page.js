@@ -10,7 +10,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 
 
 
-const page = async () => {
+const Orderpage = async () => {
 
   const router = useRouter();
   const getOrders = async () => {
@@ -114,4 +114,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Orderpage;
